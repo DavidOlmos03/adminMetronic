@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService   } from 'ngx-toastr';
 import { UsersService } from '../service/users.service';
 import { IfStmt } from '@angular/compiler';
+
 
 
 @Component({
@@ -11,6 +12,7 @@ import { IfStmt } from '@angular/compiler';
   styleUrls: ['./add-users.component.scss']
 })
 export class AddUsersComponent {
+  @Output() UserC: EventEmitter<any> = new EventEmitter();  // Para pasar datos del hijo-padre (en este caso a list-users)
   name:string = ''
   surname:string = ''
   email:string = ''
@@ -51,14 +53,17 @@ export class AddUsersComponent {
     formData.append("email",this.email)
     formData.append("password",this.password)
     formData.append("role_id",this.role_id + "")
+    formData.append("state",1 + "")   // Esto deberia arreglar el problema de que no aparezca el state inmediatamente se cree o edite el usuario
 
     this.UserService.registerUser(formData).subscribe((resp:any)=>{
-      console.log(resp)
+      // console.log(resp)
       if (resp.message == 403) {
         this.toastr.error(resp.message_text, 'MENSAJE DE VALIDACIÓN');
         return;
       }else{
+        this.UserC.emit(resp.user)
         this.toastr.success("EL USUARIO SE REGISTRÓ CORRECTAMENTE",'VALIDACIÓN')
+        this.modal.close()
       }
     })
   }

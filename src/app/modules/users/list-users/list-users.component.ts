@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddUsersComponent } from '../add-users/add-users.component';
 import { UsersService } from '../service/users.service';
+import { EditUsersComponent } from '../edit-users/edit-users.component';
+import { DeleteUsersComponent } from '../delete-users/delete-users.component';
 
 @Component({
   selector: 'app-list-users',
@@ -16,7 +18,7 @@ export class ListUsersComponent {
 
   isLoading:any;  // Esto solo aplica para cuando trabajo con metronic, sin esto no carga los datos en la plataforma, a pesar de traerlos bien del backend
   constructor(
-    public modalSevice:NgbModal,
+    public modalService:NgbModal,
     public userService: UsersService,
   ){
 
@@ -33,6 +35,34 @@ export class ListUsersComponent {
     })
   }
   registerUser(){
-    const modalRef = this.modalSevice.open(AddUsersComponent,{centered:true, size:'md'})
+    const modalRef = this.modalService.open(AddUsersComponent,{centered:true, size:'md'});
+
+    modalRef.componentInstance.UserC.subscribe((User:any)=>{  // Aqui utilizo el UserC que se definio con el @OutPut en AddUserComponent
+      this.USERS.unshift(User)
+    })
+  }
+  editUser(USER:any){
+    const modalRef = this.modalService.open(EditUsersComponent,{centered:true, size:'md'});
+    modalRef.componentInstance.USER = USER;
+
+    modalRef.componentInstance.UserE.subscribe((User:any)=>{  // Aqui utilizo el UserC que se definio con el @OutPut en AddUserComponent
+      // this.USERS.unshift(User)
+      let index = this.USERS.findIndex((item:any) => item.id == User.id);
+      if (index != -1) {
+        this.USERS[index] = User;
+      }
+    })
+  }
+  deleteUser(USER:any){
+    const modalRef = this.modalService.open(DeleteUsersComponent,{centered:true, size:'md'});
+    modalRef.componentInstance.USER = USER;
+
+    modalRef.componentInstance.UserD.subscribe((User:any)=>{  // Aqui utilizo el UserC que se definio con el @OutPut en AddUserComponent
+
+      let index = this.USERS.findIndex((item:any) => item.id == USER.id);
+      if (index != -1) {
+        this.USERS.splice(index,1);
+      }
+    })
   }
 }
