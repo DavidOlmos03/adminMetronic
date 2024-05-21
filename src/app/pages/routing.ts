@@ -40,7 +40,11 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/users/users.module').then((m) => m.UsersModule),
     // data: { layout: 'light-sidebar' },
   },
-
+  {
+    path: 'planes-y-productos',
+    loadChildren: () => import('../modules/product-plans/product-plans.module').then((m) => m.ProductPlansModule),
+    // data: { layout: 'light-sidebar' },
+  },
   {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
