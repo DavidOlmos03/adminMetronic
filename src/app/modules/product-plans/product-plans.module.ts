@@ -6,11 +6,9 @@ import { ProductPlansComponent } from './product-plans.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
-import { ProductPaypalComponent } from './service/product-paypal/product-paypal.component';
 import { PlanesListComponent } from './planes/planes-list/planes-list.component';
 import { PlanesAddComponent } from './planes/planes-add/planes-add.component';
 import { PlanesAditComponent } from './planes/planes-adit/planes-adit.component';
-import { PlanesPaypalComponent } from './service/planes-paypal/planes-paypal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,11 +21,9 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     ProductListComponent,
     ProductAddComponent,
     ProductEditComponent,
-    ProductPaypalComponent,
     PlanesListComponent,
     PlanesAddComponent,
     PlanesAditComponent,
-    PlanesPaypalComponent
   ],
   imports: [
     CommonModule,
