@@ -19,12 +19,13 @@ export class ProductListComponent {
   ){}
   ngOnInit(){
     this.isLoading = this.productPaypalService.isLoading$;
+    this.listProducts()
   }
 
   listProducts(){
     this.productPaypalService.listProducts(this.search).subscribe((resp:any) => {
-      this.PRODUCTS =  resp.products.data;
-      console.log(this.PRODUCTS)
+      console.log(resp)
+      this.PRODUCTS =  resp.products;
     })
   }
   registerProduct(){
