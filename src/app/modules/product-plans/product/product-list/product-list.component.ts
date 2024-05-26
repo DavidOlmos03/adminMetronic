@@ -17,6 +17,7 @@ export class ProductListComponent {
     public modalService:NgbModal,
     public productPaypalService: ProductPaypalService,
   ){}
+
   ngOnInit(){
     this.isLoading = this.productPaypalService.isLoading$;
     this.listProducts()
@@ -28,6 +29,7 @@ export class ProductListComponent {
       this.PRODUCTS =  resp.products;
     })
   }
+
   registerProduct(){
     const modalRef = this.modalService.open(ProductAddComponent,{centered:true, size:'md'});
 
@@ -35,9 +37,10 @@ export class ProductListComponent {
       this.PRODUCTS.unshift(Product)
     })
   }
+
   editProduct(PRODUCT:any){
     const modalRef = this.modalService.open(ProductEditComponent,{centered:true, size:'md'});
-    modalRef.componentInstance.PRODUCT = PRODUCT;
+    modalRef.componentInstance.product_selected = PRODUCT;
 
     modalRef.componentInstance.ProductE.subscribe((Product:any)=>{  // Aqui utilizo el UserC que se definio con el @OutPut en AddUserComponent
       // this.USERS.unshift(User)

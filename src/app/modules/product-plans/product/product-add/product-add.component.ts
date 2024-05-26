@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductAddComponent {
   @Output() ProductC: EventEmitter<any> = new EventEmitter();  // Para pasar datos del hijo-padre (en este caso a list-users)
+
   name:string = ''
   type:string = ''
   category:string = ''
@@ -39,7 +40,7 @@ export class ProductAddComponent {
     }
     this.productPaypalService.registerProduct(data).subscribe((resp:any)=>{
       console.log(resp);
-
+      this.ProductC.emit(resp.product);
       this.toastr.success("SE HA CREADO UN PRODUCTO EXITOSAMENTE",'VALIDACIÓN')
       this.modal.close()
     })
