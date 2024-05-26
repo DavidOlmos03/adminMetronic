@@ -22,10 +22,10 @@ export class ProductListComponent {
   }
 
   listProducts(){
-    // this.productPaypalService.listProducts(this.search).subscribe((resp:any) => {
-    //   this.PRODUCTS =  resp.products.data;
-    //   console.log(this.PRODUCTS)
-    // })
+    this.productPaypalService.listProducts(this.search).subscribe((resp:any) => {
+      this.PRODUCTS =  resp.products.data;
+      console.log(this.PRODUCTS)
+    })
   }
   registerProduct(){
     const modalRef = this.modalService.open(ProductAddComponent,{centered:true, size:'md'});

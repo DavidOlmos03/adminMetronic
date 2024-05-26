@@ -27,6 +27,21 @@ export class ProductAddComponent {
   }
 
   save(){
+    if(!this.name || !this.type || !this.category || !this.description){
+      this.toastr.error('NECESITAS INGRESAR TODOS LOS CAMPOS','VALIDACIÓN')
+      return;
+    }
+    let data = {
+      name: this.name,
+      type: this.type,
+      category: this.category,
+      description: this.description,
+    }
+    this.productPaypalService.registerProduct(data).subscribe((resp:any)=>{
+      console.log(resp);
 
+      this.toastr.success("SE HA CREADO UN PRODUCTO EXITOSAMENTE",'VALIDACIÓN')
+      this.modal.close()
+    })
   }
 }
