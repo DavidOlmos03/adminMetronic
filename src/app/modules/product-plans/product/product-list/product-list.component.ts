@@ -40,6 +40,8 @@ export class ProductListComponent {
 
   editProduct(PRODUCT:any){
     const modalRef = this.modalService.open(ProductEditComponent,{centered:true, size:'md'});
+
+    // Para enviar a la ventana modal de Edit
     modalRef.componentInstance.product_selected = PRODUCT;
 
     modalRef.componentInstance.ProductE.subscribe((Product:any)=>{  // Aqui utilizo el UserC que se definio con el @OutPut en AddUserComponent
