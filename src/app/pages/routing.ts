@@ -46,6 +46,11 @@ const Routing: Routes = [
     // data: { layout: 'light-sidebar' },
   },
   {
+    path: 'generos',
+    loadChildren: () => import('../modules/genres/genres.module').then((m) => m.GenresModule),
+    // data: { layout: 'light-sidebar' },
+  },
+  {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },

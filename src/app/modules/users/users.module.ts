@@ -24,10 +24,15 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
   imports: [
     CommonModule,
     UsersRoutingModule,
+    // Para poder realizar peticiones http
     HttpClientModule,
+    // Para manejar los formularios
     FormsModule,
+    // Modulo de bootstrap
     NgbModule,
+    // Para manejar la reactividad de los formularios
     ReactiveFormsModule,
+    // Modulos que hacen parte de la plantilla de metronic
     InlineSVGModule,
     NgbModalModule,
 
