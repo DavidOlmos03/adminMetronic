@@ -30,6 +30,22 @@ export class GenresListComponent {
     this.isLoading = this.genreService.isLoading$;   // Necesario hacerlo para relacionar el isLoading con el componente donde lo estoy utilizando
                                                     // Además en el HTML debo aplicar <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
   }
+  getType(type:any){
+    let value = ""
+    type = parseInt(type)
+    switch(type){
+      case 1:
+        value = "MOVIE"
+        break;
+      case 2:
+        value = "TV SHOW"
+        break;
+      case 3:
+        value = "VIDEO"
+        break;
+    }
+    return value;
+  }
   listGenres (){
     // console.log("Desde genres-list" + this.GENRES)
     this.genreService.listGenres(this.search,this.state).subscribe((resp:any) => {
@@ -47,6 +63,7 @@ export class GenresListComponent {
   }
   editGenre(GENRE:any){
     const modalRef = this.modalService.open(GenresEditComponent,{centered:true, size:'md'});
+    // Aqui paso a esa ventana modal de edición el GENRE
     modalRef.componentInstance.GENRE = GENRE;
 
     modalRef.componentInstance.GenreE.subscribe((Genre:any)=>{  // Aqui utilizo el GenreC que se definio con el @OutPut en GenreEditComponent

@@ -97,6 +97,7 @@
 
                 <th class="min-w-125px">Image</th>
                 <th class="min-w-125px">Title</th>
+                <th class="min-w-125px">Type</th>
                 <th class="min-w-125px">Status</th>
                 <th class="min-w-125px">Fecha de registro</th>
                 <th class="text-end min-w-100px">Actions</th>
@@ -133,6 +134,7 @@
                       <!--begin::User details-->
                   </td>
                   <!--end::Role=-->
+                  <td>{{getType(GENRE.type)}}</td>
                   <!--begin::Status=-->
                   <td>
                     <div class="badge badge-light-success fw-bolder" *ngIf="GENRE.state === 1">Activo</div>
