@@ -23,6 +23,8 @@ export class UsersService {
 
   // Parametros que solicita metronic son la busqueda y el estatus
   listUsers(search:any=null, state:any=null){
+    console.log("Desde users service "+search+" "+state)
+
     this.isLoadingSubject.next(true)
     let Headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token})
     let LINK = '?t='
@@ -33,6 +35,7 @@ export class UsersService {
       LINK += "&state="+state
     }
     let URL = URL_SERVICIOS + "/users" + LINK
+    console.log(URL)
     return this.http.get(URL,{headers:Headers}).pipe(
       finalize(()=>{
         this.isLoadingSubject.next(false)
