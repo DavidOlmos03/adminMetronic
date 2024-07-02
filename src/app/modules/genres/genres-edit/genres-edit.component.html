@@ -85,7 +85,25 @@
           <option value="1">MOVIE</option>
           <option value="2">TV SHOW</option>
           <option value="3">VIDEOS</option>
-      </select>
+          </select>
+
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-7">
+          <!--begin::Label-->
+          <label class="required fw-bold fs-6 mb-2">Status: </label>
+          <!--end::Label-->
+          <select
+          class="form-control form-select-solid fw-bolder"
+          name="state"
+          placeholder="Selec. Status"
+          [(ngModel)] = "state"
+          >
+          <option value="1">Activo</option>
+          <option value="2">Inactivo</option>
+
+          </select>
 
         </div>
         <!--end::Input group-->
