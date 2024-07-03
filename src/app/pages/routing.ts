@@ -51,6 +51,11 @@ const Routing: Routes = [
     // data: { layout: 'light-sidebar' },
   },
   {
+    path: 'actors',
+    loadChildren: () => import('../modules/actors/actors.module').then((m) => m.ActorsModule),
+    // data: { layout: 'light-sidebar' },
+  },
+  {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { GenresRoutingModule } from './genres-routing.module';
-import { GenresComponent } from './genres.component';
-import { GenresListComponent } from './genres-list/genres-list.component';
-import { GenresAddComponent } from './genres-add/genres-add.component';
-import { GenresEditComponent } from './genres-edit/genres-edit.component';
-import { GenresDeleteComponent } from './genres-delete/genres-delete.component';
+import { ActorsRoutingModule } from './actors-routing.module';
+import { ActorsComponent } from './actors.component';
+import { ActorsAddComponent } from './actors-add/actors-add.component';
+import { ActorsEditComponent } from './actors-edit/actors-edit.component';
+import { ActorsDeleteComponent } from './actors-delete/actors-delete.component';
+import { ActorsListComponent } from './actors-list/actors-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,15 +15,15 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 
 @NgModule({
   declarations: [
-    GenresComponent,
-    GenresListComponent,
-    GenresAddComponent,
-    GenresEditComponent,
-    GenresDeleteComponent
+    ActorsComponent,
+    ActorsAddComponent,
+    ActorsEditComponent,
+    ActorsDeleteComponent,
+    ActorsListComponent
   ],
   imports: [
     CommonModule,
-    GenresRoutingModule,
+    ActorsRoutingModule,
 
     // Modulos a mimportar por defecto y para trabajar con el admin de metronic
     HttpClientModule,
@@ -34,4 +34,4 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     NgbModalModule,
   ]
 })
-export class GenresModule { }
+export class ActorsModule { }
