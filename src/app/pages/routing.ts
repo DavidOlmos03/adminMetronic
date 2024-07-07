@@ -56,6 +56,10 @@ const Routing: Routes = [
     // data: { layout: 'light-sidebar' },
   },
   {
+    path: 'tags',
+    loadChildren: () => import('../modules/tags/tags.module').then((m) => m.TagsModule),
+  },
+  {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
