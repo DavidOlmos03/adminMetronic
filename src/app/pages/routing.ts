@@ -60,6 +60,10 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/tags/tags.module').then((m) => m.TagsModule),
   },
   {
+    path: 'streamings',
+    loadChildren: () => import('../modules/streaming/streaming.module').then((m) => m.StreamingModule),
+  },
+  {
     path: 'apps/users',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
