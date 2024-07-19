@@ -1,1 +1,319 @@
-<p>streaming-edit works!</p>
+<span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+<!-- para evitar que salgan errores porque aún el streamingSelected es null -->
+<div class="card card-flush h-lg-100" id="kt_contacts_main" *ngIf="streaming_selected">
+  <!--begin::Card header-->
+  <div class="card-header pt-7" id="kt_chat_contacts_header">
+    <!--begin::Card title-->
+    <div class="card-title">
+      <!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
+      <span class="svg-icon svg-icon-1 me-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z" fill="currentColor"></path>
+          <path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z" fill="currentColor"></path>
+        </svg>
+      </span>
+      <!--end::Svg Icon-->
+      <h2>Edit Streaming: {{streaming_selected.title}}</h2>
+    </div>
+    <!--end::Card title-->
+  </div>
+  <!--end::Card header-->
+  <!--begin::Card body-->
+  <div class="card-body pt-5">
+    <!--begin::Form-->
+    <form id="kt_ecommerce_settings_general_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" action="#">
+      <!--begin::Input group-->
+      <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+        <div class="col">
+          <!--begin::Label-->
+          <label class="fs-6 fw-bold form-label mt-3">
+            <span class="required">Titulo:</span>
+            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's name." aria-label="Enter the contact's name."></i>
+          </label>
+          <!--end::Label-->
+          <!--begin::Input-->
+          <input type="text" class="form-control form-control-solid" name="title" [(ngModel)]="title">
+          <!--end::Input-->
+        </div>
+        <div class="col">
+          <!--begin::Label-->
+          <label class="fs-6 fw-bold form-label mt-3">
+            <span class="required">Sub Titulo:</span>
+            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's name." aria-label="Enter the contact's name."></i>
+          </label>
+          <!--end::Label-->
+          <!--begin::Input-->
+          <input type="text" class="form-control form-control-solid" name="subtitle" [(ngModel)]="subtitle">
+          <!--end::Input-->
+        </div>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+        <div class="col">
+          <!--begin::Label-->
+          <label class="fs-6 fw-bold form-label mt-3">
+            <span>Imagen</span>
+          </label>
+          <!--end::Label-->
+
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+          </div>
+        </div>
+        <div class="col" *ngIf="IMAGEN_PREVISUALIZA">
+          <img [src]="IMAGEN_PREVISUALIZA" width="100%" alt="">
+        </div>
+      </div>
+      <!--end::Input group-->
+      <!--begin::Row-->
+      <div class="row row-cols-2 row-cols-sm-3 rol-cols-md-2 row-cols-lg-3">
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Input group-->
+          <div class="fv-row mb-7 fv-plugins-icon-container">
+            <!--begin::Label-->
+            <label class="fs-6 fw-bold form-label mt-3">
+              <span class="required">Genero</span>
+              <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's email." aria-label="Enter the contact's email."></i>
+            </label>
+            <!--end::Label-->
+
+            <select
+            class="form-control form-select-solid fw-bolder"
+            name="categorie"
+            placeholder="Selec. Genero"
+            [(ngModel)]="genre_id"
+            >
+            <ng-container *ngFor="let GENRE of GENRES">
+              <option [value]="GENRE.id">{{GENRE.title}}</option>
+            </ng-container>
+            </select>
+
+          </div>
+          <!--end::Input group-->
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Input group-->
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="fs-6 fw-bold form-label mt-3">
+              <span>Tipo de Streaming</span>
+              <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's city of residence (optional)." aria-label="Enter the contact's city of residence (optional)."></i>
+            </label>
+            <!--end::Label-->
+            <select
+            class="form-control form-select-solid fw-bolder"
+            name="type"
+            placeholder="Selec. Tipo"
+            [(ngModel)]="type"
+            >
+            <option value="1">Movie</option>
+            <option value="2">Tv Show</option>
+            <option value="3">Video</option>
+            </select>
+          </div>
+          <!--end::Input group-->
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Input group-->
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="fs-6 fw-bold form-label mt-3">
+              <span>Descripción</span>
+              <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's phone number (optional)." aria-label="Enter the contact's phone number (optional)."></i>
+            </label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            <textarea name="description" cols="30" rows="5" [(ngModel)]="description" placeholder="Agrega una descripción" class="form-control form-control-solid mb-3 mb-lg-0"></textarea>
+            <!--end::Input-->
+          </div>
+          <!--end::Input group-->
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      <!--begin::Row-->
+      <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Input group-->
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="fs-6 fw-bold form-label mt-3">
+              <span>Tags</span>
+              <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's city of residence (optional)." aria-label="Enter the contact's city of residence (optional)."></i>
+            </label>
+            <!--end::Label-->
+            <div class="d-flex">
+              <select
+              class="form-control form-select-solid fw-bolder"
+              name="tags"
+              placeholder="Selec. Tags"
+              [(ngModel)]="selected_tag"
+              >
+              <ng-container *ngFor="let TAG of TAGS">
+                <option [value]="TAG.id">{{TAG.title}}</option>
+              </ng-container>
+              </select>
+              <button class="btn btn-primary btn-sm ms-5" (click)="addTags()">+</button>
+            </div>
+          </div>
+          <!--end::Input group-->
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col">
+          <div class="table-responsive">
+            <!--begin::Table-->
+            <table class="table align-middle gs-0 gy-4">
+              <!--begin::Table head-->
+              <thead>
+                <tr class="fw-bolder text-muted bg-light">
+                  <th class="ps-4 rounded-start">Tags</th>
+                  <th class="rounded-end">Action</th>
+                </tr>
+              </thead>
+              <!--end::Table head-->
+              <!--begin::Table body-->
+              <tbody>
+                <ng-container *ngFor="let tag of tags_selected;let i = index">
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{tag.title}}</a>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-end">
+                      <!-- <p>hola streaming edit</p> -->
+                      <a href="#" onclick="return false;" (click)="deleteTag(i)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                        <span class="svg-icon svg-icon-3">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor"></path>
+                            <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor"></path>
+                            <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor"></path>
+                          </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+          </div>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      <!--begin::Row-->
+      <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Input group-->
+          <div class="fv-row mb-7">
+            <!--begin::Label-->
+            <label class="fs-6 fw-bold form-label mt-3">
+              <span>Actores del streaming</span>
+              <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's city of residence (optional)." aria-label="Enter the contact's city of residence (optional)."></i>
+            </label>
+            <!--end::Label-->
+            <div class="d-flex">
+              <select
+              class="form-control form-select-solid fw-bolder"
+              name="actores"
+              placeholder="Selec. Actores"
+              [(ngModel)]="selected_actor"
+              >
+              <ng-container *ngFor="let ACTOR of ACTORS">
+                <option [value]="ACTOR.id">{{ACTOR.full_name}}</option>
+              </ng-container>
+              </select>
+              <button class="btn btn-primary btn-sm ms-5" (click)="addActors()">+</button>
+            </div>
+          </div>
+          <!--end::Input group-->
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col">
+          <div class="table-responsive">
+            <!--begin::Table-->
+            <table class="table align-middle gs-0 gy-4">
+              <!--begin::Table head-->
+              <thead>
+                <tr class="fw-bolder text-muted bg-light">
+                  <th class="ps-4 rounded-start">Actor/Director</th>
+                  <th class="rounded-end">Action</th>
+                </tr>
+              </thead>
+              <!--end::Table head-->
+              <!--begin::Table body-->
+              <tbody>
+                <ng-container *ngFor="let actor of actors_selected">
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{actor.full_name}}</a>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-end">
+                      <a href="#" onclick="return false;" (click)="deleteActor(actors_selected)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                        <span class="svg-icon svg-icon-3">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor"></path>
+                            <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor"></path>
+                            <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor"></path>
+                          </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+          </div>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+
+      <!--begin::Separator-->
+      <div class="separator mb-6"></div>
+      <!--end::Separator-->
+      <!--begin::Action buttons-->
+      <div class="d-flex justify-content-end">
+        <!--begin::Button-->
+        <!-- <button type="reset" data-kt-contacts-type="cancel" class="btn btn-light me-3">Cancelar</button> -->
+        <!--end::Button-->
+        <!--begin::Button-->
+        <button type="button" class="btn btn-primary" (click)="save()">
+          <span class="indicator-label">Editar</span>
+          <!-- <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+        </button>
+        <!--end::Button-->
+      </div>
+      <!--end::Action buttons-->
+    <div></div></form>
+    <!--end::Form-->
+  </div>
+  <!--end::Card body-->
+</div>

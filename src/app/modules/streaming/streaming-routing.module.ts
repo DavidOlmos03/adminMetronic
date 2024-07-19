@@ -19,7 +19,7 @@ const routes: Routes = [
         component: StreamingAddComponent
       },
       {
-        path: 'editar/:id',
+        path: 'lista/editar/:id',
         component: StreamingEditComponent
       }
     ]

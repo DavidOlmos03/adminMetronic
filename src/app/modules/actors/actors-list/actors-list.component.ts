@@ -45,7 +45,7 @@ export class ActorsListComponent {
   listActors (){
     // console.log("Desde actors-list" + this.ACTORS)
     this.actorService.listActors(this.search,this.state).subscribe((resp:any) => {
-      // console.log(resp.actors)
+      console.log(resp.actors)
       // en resp.actors.data se quita el .data porque a diferencia de users, aquí no estamos utilizando una collection
       this.ACTORS =  resp.actors;
     })
