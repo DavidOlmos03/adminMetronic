@@ -49,7 +49,7 @@ export class StreamingListComponent {
   listStreamings (){
     // console.log("Desde genres-list" + this.GENRES)
     this.streamingService.listStreamings(this.search,this.state).subscribe((resp:any) => {
-      console.log(resp.streamings)
+      console.log(resp.streamings.data)
       // en resp.genres.data se quita el .data porque a diferencia de users, aquí no estamos utilizando una collection
       this.STREAMINGS =  resp.streamings.data;
     })

@@ -125,7 +125,8 @@ export class StreamingEditComponent {
     console.log(actor_selec.index)
     let INDEX_ACTOR_SELECTED =  this.actors_selected.findIndex((item:any) => item.id == actor_selec.id)
     // console.log(INDEX_ACTOR_SELECTED)
-    if(INDEX_ACTOR_SELECTED == -1){
+    // Si el INDEX_ACTOR_SELECTED me retorna diferente de -1 significa que si existe, entonces procedo a eliminarlo de la lista
+    if(INDEX_ACTOR_SELECTED != -1){
       // console.log(actor_selec)
       this.actors_selected.splice(INDEX_ACTOR_SELECTED,1)
     }

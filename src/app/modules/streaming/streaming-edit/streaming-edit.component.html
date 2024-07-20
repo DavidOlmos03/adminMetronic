@@ -267,11 +267,12 @@
                       <div class="d-flex align-items-center">
                         <div class="d-flex justify-content-start flex-column">
                           <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{actor.full_name}}</a>
+                          <span class="text-muted fw-bold d-block fs-7">{{actor.profession}}</span>
                         </div>
                       </div>
                     </td>
                     <td class="text-end">
-                      <a href="#" onclick="return false;" (click)="deleteActor(actors_selected)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                      <a href="#" onclick="return false;" (click)="deleteActor(actor)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                         <span class="svg-icon svg-icon-3">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
