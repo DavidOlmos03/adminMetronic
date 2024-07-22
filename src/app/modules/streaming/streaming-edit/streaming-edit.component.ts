@@ -16,12 +16,12 @@ export class StreamingEditComponent {
 
   IMAGEN_FILE:any
   IMAGEN_PREVISUALIZA:any
-
+  VIDEO_TRAILER:any
   genre_id:any = ""
   tags_selected:any = []
   actors_selected:any = []
   type:any = 1
-
+  state:any = 1
 
   TAGS:any = []
   GENRES:any = []
@@ -64,7 +64,6 @@ export class StreamingEditComponent {
         this.toaster.error('EL STREAMING NO EXISTE')
         this.router.navigateByUrl("/streamings/lista")
       }
-      console.log(resp.streaming)
       this.streaming_selected = resp.streaming
       this.title = this.streaming_selected.title
       this.subtitle = this.streaming_selected.subtitle
@@ -75,10 +74,12 @@ export class StreamingEditComponent {
 
       this.tags_selected = this.streaming_selected.tags_multiple;
       this.actors_selected = this.streaming_selected.actors;
+      this.state = this.streaming_selected.state
     })
   }
 
   addTags(){
+    console.log("tags_selected 1:",this.tags_selected)
     if (this.selected_tag) {
       let INDEX = this.tags_selected.findIndex((item:any) => item.id == this.selected_tag);
       if(INDEX != -1){
@@ -132,6 +133,21 @@ export class StreamingEditComponent {
     }
     // console.log(actor_selec)
   }
+  processFileVideo($event:any){
+    if ($event.target.files[0].type.indexOf("video")<0) {
+      this.toaster.error('EL ARCHIVO NO ES UN VIDEO', 'MENSAJE DE VALIDACIÓN');
+      return;
+    }
+    this.VIDEO_TRAILER = $event.target.files[0];
+    // let reader = new FileReader()
+    // reader.readAsDataURL(this.IMAGEN_FILE)
+    // reader.onloadend = () => this.IMAGEN_PREVISUALIZA = reader.result;
+    // this.StreamingService.isLoadingSubject.next(true)
+    // setTimeout(()=>{
+    // this.StreamingService.isLoadingSubject.next(false)
+    // },50)
+  }
+  uploadVideo(){}
   processFile($event:any){
     if ($event.target.files[0].type.indexOf("image")<0) {
       this.toaster.error('EL ARCHIVO NO ES UNA IMAGEN', 'MENSAJE DE VALIDACIÓN');
@@ -159,6 +175,7 @@ export class StreamingEditComponent {
     formData.append("description",this.description)
     formData.append("genre_id",this.genre_id)
     formData.append("subtitle",this.subtitle)
+    formData.append("state",this.state)
     if (this.IMAGEN_FILE) {
       formData.append("img",this.IMAGEN_FILE)
     }

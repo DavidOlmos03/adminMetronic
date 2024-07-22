@@ -261,18 +261,18 @@
               <!--end::Table head-->
               <!--begin::Table body-->
               <tbody>
-                <ng-container *ngFor="let actor of actors_selected">
+                <ng-container *ngFor="let actor_selec of actors_selected">
                   <tr>
                     <td>
                       <div class="d-flex align-items-center">
                         <div class="d-flex justify-content-start flex-column">
-                          <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{actor.full_name}}</a>
-                          <span class="text-muted fw-bold d-block fs-7">{{actor.profession}}</span>
+                          <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{actor_selec.full_name}}</a>
+                          <span class="text-muted fw-bold d-block fs-7">{{actor_selec.profession}}</span>
                         </div>
                       </div>
                     </td>
                     <td class="text-end">
-                      <a href="#" onclick="return false;" (click)="deleteActor(actor)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                      <a href="#" onclick="return false;" (click)="deleteActor(actor_selec)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                         <span class="svg-icon svg-icon-3">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -295,7 +295,45 @@
         <!--end::Col-->
       </div>
       <!--end::Row-->
+      <!--begin::Row-->
+      <div class="row row-cols-2 row-cols-sm-3 rol-cols-md-2 row-cols-lg-3">
+        <!--begin::Col-->
+        <div class="col">
+          <!--begin::Label-->
+          <label class="fs-6 fw-bold form-label mt-3">
+            <span>Status del Streaming</span>
+            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Enter the contact's city of residence (optional)." aria-label="Enter the contact's city of residence (optional)."></i>
+          </label>
+          <!--end::Label-->
+          <select
+          class="form-control form-select-solid fw-bolder"
+          name="state"
+          placeholder="Selec. Estado"
+          [(ngModel)]="state"
+          >
+          <option value="1">Inactivo</option>
+          <option value="2">Publico</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="d-flex">
+            <div>
+              <label class="form-label">Sube tu video trailer: *</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile"  accept=".mp4"  (change)="processFileVideo($event)">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+            </div>
+            <div class="mx-3">
+              <button class="btn btn-sm btn-primary" (click)="uploadVideo()">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
 
+        </div>
+      </div>
+      <!--end::Row-->
       <!--begin::Separator-->
       <div class="separator mb-6"></div>
       <!--end::Separator-->
