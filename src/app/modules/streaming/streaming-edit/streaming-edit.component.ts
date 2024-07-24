@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StreamingService } from '../service/streaming.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-streaming-edit',
@@ -33,11 +34,13 @@ export class StreamingEditComponent {
   selected_actor:any
 
   streaming_id:any = null
+  loading_video:boolean = false
   constructor(
     public StreamingService: StreamingService,
     public toaster: ToastrService,
     public activateRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public sanitizer:DomSanitizer
   ){
 
   }
@@ -147,7 +150,25 @@ export class StreamingEditComponent {
     // this.StreamingService.isLoadingSubject.next(false)
     // },50)
   }
-  uploadVideo(){}
+
+  urlGetVideo(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.streaming_selected.vimeo_id)
+  }
+  uploadVideo(){
+    if (!this.VIDEO_TRAILER) {
+      this.toaster.error('NO HAS SELECCIONADO NINGUN VIDEO', 'MENSAJE DE VALIDACIÓN');
+      return
+    }
+    this.loading_video = true
+
+    let formData = new FormData();
+    formData.append("video",this.VIDEO_TRAILER)
+
+    this.StreamingService.uploadVideoTrailer(this.streaming_selected.id,formData).subscribe((resp:any)=>{
+      console.log(resp)
+      this.loading_video = false
+    })
+  }
   processFile($event:any){
     if ($event.target.files[0].type.indexOf("image")<0) {
       this.toaster.error('EL ARCHIVO NO ES UNA IMAGEN', 'MENSAJE DE VALIDACIÓN');
