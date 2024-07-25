@@ -23,6 +23,7 @@ export class StreamingEditComponent {
   actors_selected:any = []
   type:any = 1
   state:any = 1
+  link_vimeo:any = null
 
   TAGS:any = []
   GENRES:any = []
@@ -77,7 +78,8 @@ export class StreamingEditComponent {
 
       this.tags_selected = this.streaming_selected.tags_multiple;
       this.actors_selected = this.streaming_selected.actors;
-      this.state = this.streaming_selected.state
+      this.state = this.streaming_selected.state;
+      this.link_vimeo = this.streaming_selected.vimeo_id
     })
   }
 
@@ -152,7 +154,7 @@ export class StreamingEditComponent {
   }
 
   urlGetVideo(){
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.streaming_selected.vimeo_id)
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.link_vimeo)
   }
   uploadVideo(){
     if (!this.VIDEO_TRAILER) {
@@ -167,6 +169,12 @@ export class StreamingEditComponent {
     this.StreamingService.uploadVideoTrailer(this.streaming_selected.id,formData).subscribe((resp:any)=>{
       console.log(resp)
       this.loading_video = false
+      this.link_vimeo = null
+      setTimeout(() => {
+        this.StreamingService.isLoadingSubject.next(false)
+        this.link_vimeo = resp.vimeo_link
+      }, 50);
+      this.StreamingService.isLoadingSubject.next(true)
     })
   }
   processFile($event:any){
