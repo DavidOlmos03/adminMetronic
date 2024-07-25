@@ -98,6 +98,16 @@ export class StreamingService {
       })
     )
   }
+  uploadVideoContenido(streaming_id:any, data:any){
+    this.isLoadingSubject.next(true)
+    let Headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token})
+    let URL = URL_SERVICIOS + "/streaming/upload_video_contenido/"+streaming_id
+    return this.http.post(URL,data,{headers:Headers}).pipe(   //No se utiliza put o patch pues estas no me permiten enviar imagenes de manera adecuada, cosa que se estara haciendo
+      finalize(()=>{
+        this.isLoadingSubject.next(false)
+      })
+    )
+  }
   deleteStreaming(streaming_id:any){
     this.isLoadingSubject.next(true)
     let Headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token})

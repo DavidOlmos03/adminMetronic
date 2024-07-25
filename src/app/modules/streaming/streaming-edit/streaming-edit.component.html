@@ -342,6 +342,35 @@
         </div>
       </div>
       <!--end::Row-->
+      <!--begin::Row-->
+      <div class="row row-cols-2 row-cols-sm-3 rol-cols-md-2 row-cols-lg-3">
+        <div class="col">
+          <div class="d-flex">
+            <div>
+              <label class="form-label">Sube tu video de contenido:</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile"  accept=".mp4"  (change)="processFileVideoContenido($event)">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+            </div>
+            <div class="mx-3">
+              <button class="btn btn-sm btn-primary" *ngIf="!loading_video" (click)="uploadVideoContenido()">+</button>
+              <span *ngIf="loading_video" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="link_vimeo_contenido">
+
+            <iframe [src]="urlGetVideoContenido()"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            title="Untitled">
+            </iframe>
+
+        </div>
+      </div>
+      <!--end::Row-->
       <!--begin::Separator-->
       <div class="separator mb-6"></div>
       <!--end::Separator-->

@@ -18,12 +18,14 @@ export class StreamingEditComponent {
   IMAGEN_FILE:any
   IMAGEN_PREVISUALIZA:any
   VIDEO_TRAILER:any
+  VIDEO_CONTENIDO:any
   genre_id:any = ""
   tags_selected:any = []
   actors_selected:any = []
   type:any = 1
   state:any = 1
   link_vimeo:any = null
+  link_vimeo_contenido:any = null
 
   TAGS:any = []
   GENRES:any = []
@@ -79,7 +81,8 @@ export class StreamingEditComponent {
       this.tags_selected = this.streaming_selected.tags_multiple;
       this.actors_selected = this.streaming_selected.actors;
       this.state = this.streaming_selected.state;
-      this.link_vimeo = this.streaming_selected.vimeo_id
+      this.link_vimeo = this.streaming_selected.vimeo_id;
+      this.link_vimeo_contenido = this.streaming_selected.vimeo_contenido_id
     })
   }
 
@@ -144,17 +147,20 @@ export class StreamingEditComponent {
       return;
     }
     this.VIDEO_TRAILER = $event.target.files[0];
-    // let reader = new FileReader()
-    // reader.readAsDataURL(this.IMAGEN_FILE)
-    // reader.onloadend = () => this.IMAGEN_PREVISUALIZA = reader.result;
-    // this.StreamingService.isLoadingSubject.next(true)
-    // setTimeout(()=>{
-    // this.StreamingService.isLoadingSubject.next(false)
-    // },50)
+  }
+  processFileVideoContenido($event:any){
+    if ($event.target.files[0].type.indexOf("video")<0) {
+      this.toaster.error('EL ARCHIVO NO ES UN VIDEO', 'MENSAJE DE VALIDACIÓN');
+      return;
+    }
+    this.VIDEO_CONTENIDO = $event.target.files[0];
   }
 
   urlGetVideo(){
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.link_vimeo)
+  }
+  urlGetVideoContenido(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.link_vimeo_contenido)
   }
   uploadVideo(){
     if (!this.VIDEO_TRAILER) {
@@ -173,6 +179,27 @@ export class StreamingEditComponent {
       setTimeout(() => {
         this.StreamingService.isLoadingSubject.next(false)
         this.link_vimeo = resp.vimeo_link
+      }, 50);
+      this.StreamingService.isLoadingSubject.next(true)
+    })
+  }
+  uploadVideoContenido(){
+    if (!this.VIDEO_CONTENIDO) {
+      this.toaster.error('NO HAS SELECCIONADO NINGUN VIDEO', 'MENSAJE DE VALIDACIÓN');
+      return
+    }
+    this.loading_video = true
+
+    let formData = new FormData();
+    formData.append("video",this.VIDEO_CONTENIDO)
+
+    this.StreamingService.uploadVideoContenido(this.streaming_selected.id,formData).subscribe((resp:any)=>{
+      console.log(resp)
+      this.loading_video = false
+      this.link_vimeo_contenido = null
+      setTimeout(() => {
+        this.StreamingService.isLoadingSubject.next(false)
+        this.link_vimeo_contenido = resp.vimeo_link
       }, 50);
       this.StreamingService.isLoadingSubject.next(true)
     })
