@@ -11,6 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { SeasonsComponent } from './seasons/seasons/seasons.component';
+import { SeasonsEditComponent } from './seasons/seasons-edit/seasons-edit.component';
+import { SeasonsDeleteComponent } from './seasons/seasons-delete/seasons-delete.component';
+import { EpisodesComponent } from './apisodes/episodes/episodes.component';
+import { EpisodesEditComponent } from './apisodes/episodes-edit/episodes-edit.component';
+import { EpisodesDeleteComponent } from './apisodes/episodes-delete/episodes-delete.component';
 
 
 @NgModule({
@@ -19,7 +25,13 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     StreamingAddComponent,
     StreamingEditComponent,
     StreamingDeleteComponent,
-    StreamingListComponent
+    StreamingListComponent,
+    SeasonsComponent,
+    SeasonsEditComponent,
+    SeasonsDeleteComponent,
+    EpisodesComponent,
+    EpisodesEditComponent,
+    EpisodesDeleteComponent
   ],
   imports: [
     CommonModule,

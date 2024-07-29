@@ -122,6 +122,7 @@ export class StreamingAddComponent {
     // Despues de lo anterior obtengo y luego -> en el backend
     // ["SUSPENSO","TERROR","COMEDIA"] -> "SUSPENSO","TERROR","COMEDIA"
     formData.append("tags",TAGST)
+    formData.append("type",this.type)
     // JSON.stringify transforma el objeto a un formato string que pueda interpretar
     formData.append("actors_selected",JSON.stringify(this.actors_selected))
 

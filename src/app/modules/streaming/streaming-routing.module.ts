@@ -4,6 +4,8 @@ import { StreamingComponent } from './streaming.component';
 import { StreamingListComponent } from './streaming-list/streaming-list.component';
 import { StreamingAddComponent } from './streaming-add/streaming-add.component';
 import { StreamingEditComponent } from './streaming-edit/streaming-edit.component';
+import { SeasonsComponent } from './seasons/seasons/seasons.component';
+import { EpisodesComponent } from './apisodes/episodes/episodes.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,15 @@ const routes: Routes = [
       {
         path: 'lista/editar/:id',
         component: StreamingEditComponent
+      },
+      // SEASONS Y EPISODES
+      {
+        path: 'lista/seasons/:id',
+        component: SeasonsComponent
+      },
+      {
+        path: 'lista/episodes/:id',
+        component: EpisodesComponent
       }
     ]
   }
